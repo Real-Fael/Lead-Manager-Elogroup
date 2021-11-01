@@ -7,7 +7,7 @@ class LeadsControllers {
         
     
     static registryNewLead(name,phoneNumber,email,rpa,digitalProduct,
-        analytics,rpm){
+        analytics,rpm,userId){
         
         if (!(name && phoneNumber && email)){
             throw "todos os campos devem ser prenchidos";
@@ -15,7 +15,7 @@ class LeadsControllers {
         }
         try{
             LeadService.registryNewLead(name,phoneNumber,email,rpa,digitalProduct,
-                analytics,rpm);
+                analytics,rpm,userId);
 
         }catch(e){
             throw e;
@@ -23,6 +23,18 @@ class LeadsControllers {
        
     }
 
+    static getLeadsFromUser(id){
+        let leadList=[]
+        if (id>=0)
+            leadList=LeadService.getLeadsFromUser(id);
+
+        return leadList;
+
+
+    }
+    static updateLeads(leads){
+        LeadService.updateLeads(leads);
+    }
 
 }
 

@@ -31,6 +31,12 @@ class UsersControllers {
 
     
     }
+    
+    static getSession(){
+      
+      const session= UserService.getSession();
+      return (!!session)? session:{id:-1,user:""}//Padronização para quando nao houver sessao ativa
+    }
 
 }
 

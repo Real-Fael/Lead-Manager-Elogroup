@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
 import LeadsControllers from "../../../controller/leadsController";
-import LocalStorage from "../../../services/apiServices/localStorage";
+import UsersControllers from "../../../controller/UsersController";
 
 
 
@@ -9,15 +9,19 @@ class NewLead extends React.Component {
     constructor(props){
         super(props);
         this.refForm = React.createRef();
+        const{id,user}= UsersControllers.getSession();
         this.state={
             rpa:false,
             digitalProduct:false,
             analytics:false,
             rpm:false,
             checkAll:false,
-            redirect:false
+            redirect:false,
+            session:{
+                id,
+                user
+            }
         }
-
     }
     newLeadSubmit = (event)=>{
         event.preventDefault();
@@ -27,7 +31,8 @@ class NewLead extends React.Component {
         try{
            
             LeadsControllers.registryNewLead(nameInput.value, phoneNumberInput.value,
-                 emailInput.value, this.state.rpa, this.state.digitalProduct, this.state.analytics, this.state.rpm);  
+                 emailInput.value, this.state.rpa, this.state.digitalProduct, 
+                 this.state.analytics, this.state.rpm,this.state.session.id);  
             window.alert("Lead incluído com sucesso");
             this.setState({redirect:true});
 
@@ -61,19 +66,24 @@ class NewLead extends React.Component {
     }
 
   render(){
+
+    if (this.state.session.id<0){//Para ser uma sessão válida o id deve ser maior que 0
+        return <Redirect to="/login" />
+    }
+
     if(this.state.redirect) {
         return <Redirect to="/lead" />
     }
   
     return (
         <>
-            <form ref={this.refForm}>
+            <form ref={this.refForm} onSubmit={this.newLeadSubmit}>
                 <label htmlFor ="name">Nome: </label>
-                <input id="name" name="name" type="text"></input>
+                <input id="name" name="name" type="text" required></input>
                 <label htmlFor ="phoneNumber">Telefone: </label>
-                <input id="phoneNumber" name="phoneNumber" type="tel"></input>
+                <input id="phoneNumber" name="phoneNumber" type="tel" required></input>
                 <label htmlFor ="email">Email: </label>
-                <input id="email" name="email" type="email"></input>
+                <input id="email" name="email" type="email" required></input>
                 <table>
                     <thead>
                         <tr>
@@ -120,7 +130,7 @@ class NewLead extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <p> <button type="submit" onClick={this.newLeadSubmit}>Salvar</button> </p>
+                <p> <button type="submit" >Salvar</button> </p>
     
             </form>
         </>

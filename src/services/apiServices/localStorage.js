@@ -39,7 +39,14 @@ class LocalStorage{
 
     }
     static deleteThisSession(){
-        window.sessionStorage.removeItem("session");
+        if (window.sessionStorage.hasOwnProperty("session"))
+            window.sessionStorage.removeItem("session");
+    }
+    static getSession(){
+        if (window.sessionStorage.hasOwnProperty("session"))
+            return JSON.parse(window.sessionStorage.getItem("session"));
+
+        return null;
     }
 
     static getLeadList(){
@@ -52,8 +59,11 @@ class LocalStorage{
     static storeLead(lead){
         let leads = this.getLeadList();
         leads.push(lead)
-        window.localStorage.setItem("leads",JSON.stringify(leads));
+        this.storeLeadList(leads);
       
+    }
+    static storeLeadList(leadList){
+        window.localStorage.setItem("leads",JSON.stringify(leadList));
     }
 
 }

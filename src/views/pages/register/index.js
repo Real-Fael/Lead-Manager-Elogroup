@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 import UsersControllers from "../../../controller/UsersController";
 
 
@@ -8,6 +9,9 @@ class Register extends React.Component{
     constructor(props){
         super(props);
         this.refForm= React.createRef();
+        this.state= {
+            redirect:false
+        }
     }
 
     mySubmit = (event) => {
@@ -15,18 +19,24 @@ class Register extends React.Component{
         const userInput=this.refForm.current.user;
         const passInput=this.refForm.current.password;
         const confirmPassInput=this.refForm.current.confirmPass;
-       try{
-           UsersControllers.registryCheck(userInput.value,passInput.value,confirmPassInput.value);
-
-       }catch(e){
-           alert(e);
-           return;
-       } 
+        try{
+            UsersControllers.registryCheck(userInput.value,passInput.value,confirmPassInput.value);
+            alert("Usuario Criado com sucesso");
+            this.setState({
+                redirect:true
+            })
+        }catch(e){
+            alert(e);
+            return;
+        } 
 
         return;
     }  
 
     render() {
+        if(this.state.redirect) {
+            return <Redirect to="/login" />
+          }
         return (
             <>
                 <form ref={this.refForm}>

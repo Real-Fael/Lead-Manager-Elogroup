@@ -2,7 +2,8 @@ import '../../../App.css';
 import React from 'react';
 import UsersControllers from '../../../controller/UsersController';
 import { Redirect } from 'react-router';
-
+import MenuBar from '../../../components/menuBar';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 class Login extends React.Component {
   constructor(props){
     super(props);
@@ -33,11 +34,12 @@ class Login extends React.Component {
   render(){
 
     if(this.state.redirect) {
-      return <Redirect to="/newLead" />
+      return <Redirect to="/lead" />
     }
 
     return(
       <>
+        <MenuBar></MenuBar>
         <form ref={this.refForm}>
             <label htmlFor ="user">Usuário: </label>
             <input id="user" name="user" type="text"></input>

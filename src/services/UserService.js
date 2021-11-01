@@ -35,6 +35,10 @@ class UserService{
         LocalStorage.storeSession(loginInformation);
     }
 
+    static getSession(){
+        return LocalStorage.getSession();
+    }
+
 }
 
 
