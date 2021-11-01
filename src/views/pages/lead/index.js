@@ -2,6 +2,8 @@ import React from "react";
 import UsersControllers from "../../../controller/UsersController";
 import { Redirect } from "react-router" 
 import LeadsControllers from "../../../controller/leadsController";
+import MenuBar from "../../../components/menuBar";
+import { Table, Button,Col, Row, Container } from "react-bootstrap";
 
 
 class Lead extends React.Component {
@@ -50,47 +52,53 @@ class Lead extends React.Component {
     }
       return (
         <>
-            <h2>Painel de Leads</h2>    
-            <button onClick={this.redirectNewLead}>Novo Lead (+)</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cliente em Potencial</th>
-                        <th>Dados Confirmados</th>
-                        <th>Reunião Agendada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.leadList.map((value,index)=>{
-                        if(value.Status==="Cliente em Potencial"){
-                            return(<tr key={index}>
-                                <td id={index} draggable={true} onDragEnd={this.mouseDragEnd}>{value.name}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>)
-                        }
-                        if(value.Status==="Dados Confirmados"){
-                            return(<tr key={index}>
-                                <td></td>
-                                <td id={index} draggable={true} onDragEnd={this.mouseDragEnd}>{value.name}</td>
-                                <td></td>
-                            </tr>)
-                        }       
-                        if(value.Status==="Reuniao Agendada"){
-                            return(<tr key={index}>
-                                <td></td>
-                                <td></td>
-                                <td id={index} draggable={true} onDragEnd={this.mouseDragEnd}>{value.name}</td>
-                            </tr>)
-                        }   
-                        return<></>
+            <MenuBar ></MenuBar>
+            <Container className="mt-4">
+                <Row >
+                    <Col></Col>
+                    <Col xs={7} >
+                        <h2>Painel de Leads</h2>    
+                        <Button onClick={this.redirectNewLead}>Novo Lead (+)</Button>
                         
-                    })}
-                        
-                </tbody>
-                
-
-            </table>
+                        <Table striped bordered hover >
+                            <thead>
+                                <tr>
+                                    <th>Cliente em Potencial</th>
+                                    <th>Dados Confirmados</th>
+                                    <th>Reunião Agendada</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.leadList.map((value,index)=>{
+                                            if(value.Status==="Cliente em Potencial"){
+                                                return(<tr key={index}>
+                                                    <td id={index} draggable={true} onDragEnd={this.mouseDragEnd}>{value.name}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>)
+                                            }
+                                            if(value.Status==="Dados Confirmados"){
+                                                return(<tr key={index}>
+                                                    <td></td>
+                                                    <td id={index} draggable={true} onDragEnd={this.mouseDragEnd}>{value.name}</td>
+                                                    <td></td>
+                                                </tr>)
+                                            }       
+                                            if(value.Status==="Reuniao Agendada"){
+                                                return(<tr key={index}>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td id={index} draggable={true} onDragEnd={this.mouseDragEnd}>{value.name}</td>
+                                                </tr>)
+                                            }   
+                                            return<></>
+                                        })}
+                            </tbody>
+                        </Table>
+                    </Col>
+                    <Col></Col>
+                </Row>
+            </Container>
 
         </>
     

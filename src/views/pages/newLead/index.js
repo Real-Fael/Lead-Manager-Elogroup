@@ -1,5 +1,7 @@
 import React from "react";
+import { Form, Button, Table, Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router";
+import MenuBar from "../../../components/menuBar";
 import LeadsControllers from "../../../controller/leadsController";
 import UsersControllers from "../../../controller/UsersController";
 
@@ -77,24 +79,40 @@ class NewLead extends React.Component {
   
     return (
         <>
-            <form ref={this.refForm} onSubmit={this.newLeadSubmit}>
-                <label htmlFor ="name">Nome: </label>
-                <input id="name" name="name" type="text" required></input>
-                <label htmlFor ="phoneNumber">Telefone: </label>
-                <input id="phoneNumber" name="phoneNumber" type="tel" required></input>
-                <label htmlFor ="email">Email: </label>
-                <input id="email" name="email" type="email" required></input>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                <input name="checkAll" type="checkbox" checked={this.state.checkAll} onChange={this.checkClick} ></input>
-                            </th>
-                            <th>
-                                <p>test</p>
-                            </th>
-                        </tr>
-                    </thead>
+            <MenuBar ></MenuBar>
+            <Form ref={this.refForm} onSubmit={this.newLeadSubmit}>
+            <Container className="mt-4">
+            <Row >
+            <Col></Col>
+            <Col className="mt-5" xs={4} >
+                <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Label>Nome: *</Form.Label>
+                    <Form.Control name="name" type="text" placeholder="Nome" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPhone">
+                    <Form.Label>Telefone: *</Form.Label>
+                    <Form.Control name="phoneNumber" type="text" placeholder="(00) 0 0000-0000" required/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email: *</Form.Label>
+                    <Form.Control name="email" type="email" placeholder="exemplo@exemplo.com" required/>
+                </Form.Group>
+                </Col><Col xs={4}>
+                <Form.Group className="mb-3" controlId="formOportunidades">
+                <h2>Novo Lead</h2>
+                <Form.Label>Oportunidades: *</Form.Label>
+                <Table striped bordered hover >
+                <thead>
+                    <tr >
+                        <th>
+                            <input name="checkAll" type="checkbox" checked={this.state.checkAll} onChange={this.checkClick} ></input>
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                 </thead>
                     <tbody>
                         <tr>
                             <td>
@@ -129,10 +147,17 @@ class NewLead extends React.Component {
                             </td>
                         </tr>
                     </tbody>
-                </table>
-                <p> <button type="submit" >Salvar</button> </p>
-    
-            </form>
+                </Table>
+                </Form.Group>
+                
+                <Button variant="primary" type="submit" >
+                    Salvar
+                </Button>
+            </Col>
+            <Col></Col>
+            </Row>
+        </Container>
+            </Form>
         </>
     
       );

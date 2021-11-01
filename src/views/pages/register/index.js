@@ -1,5 +1,9 @@
 import React from "react";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router";
+
+import MenuBar from "../../../components/menuBar";
+
 import UsersControllers from "../../../controller/UsersController";
 
 
@@ -9,8 +13,10 @@ class Register extends React.Component{
     constructor(props){
         super(props);
         this.refForm= React.createRef();
+    
         this.state= {
-            redirect:false
+            redirect:false,
+            
         }
     }
 
@@ -22,11 +28,14 @@ class Register extends React.Component{
         try{
             UsersControllers.registryCheck(userInput.value,passInput.value,confirmPassInput.value);
             alert("Usuario Criado com sucesso");
+            
             this.setState({
-                redirect:true
+                redirect:true,
+                
             })
         }catch(e){
             alert(e);
+            
             return;
         } 
 
@@ -34,21 +43,51 @@ class Register extends React.Component{
     }  
 
     render() {
+        
         if(this.state.redirect) {
             return <Redirect to="/login" />
           }
+
         return (
             <>
-                <form ref={this.refForm}>
-                    <label htmlFor ="user">Usuário: </label>
-                    <input id="user" name="user" type="text"></input>
-                    <label htmlFor ="password">Senha: </label>
-                    <input id="password" name="password" type="password"></input>
-                    <label htmlFor ="confirmPass">Confirme sua Senha: </label>
-                    <input id="confirmPass" name="confirmPass" type="password"></input>
-                    <p> <button onClick={this.mySubmit} type="submit" >Registrar</button> </p>
+                <MenuBar ></MenuBar> 
+                <Container className="mt-4">
+                    <Row >
+                        <Col></Col>
+                        <Col >
+                            <Form ref={this.refForm} onSubmit={this.mySubmit}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Usuário: *</Form.Label>
+                                    <Form.Control name="user" type="text" placeholder="Usuário" required />
+                                    <Form.Text className="text-muted">
+                                    Nunca compartilhe sua senha com terceiros.
+                                    </Form.Text>
+                                </Form.Group>
 
-                </form>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Password: *</Form.Label>
+                                    <Form.Control name="password" type="password" placeholder="Password" required/>
+                                    <Form.Text className="text-muted">
+                                    A senha deve possuir ao menos 8 caracteres, contendo no mínimo uma letra, um numero e um caracter especial.
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+                                    <Form.Label>Confirme sua Senha: *</Form.Label>
+                                    <Form.Control name="confirmPass" type="password" placeholder="Password" required/>
+                                </Form.Group>
+                                
+                                <Button  variant="primary" type="submit" >
+                                    Registrar
+                                </Button>
+                            </Form>
+                        
+                        </Col>
+                        <Col></Col>
+
+
+                    </Row>
+                </Container>
+
             </>
 
         );

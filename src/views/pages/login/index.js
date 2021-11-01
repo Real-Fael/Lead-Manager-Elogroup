@@ -2,7 +2,9 @@ import '../../../App.css';
 import React from 'react';
 import UsersControllers from '../../../controller/UsersController';
 import { Redirect } from 'react-router';
+import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 import MenuBar from '../../../components/menuBar';
+
 //import 'bootstrap/dist/css/bootstrap.min.css';
 class Login extends React.Component {
   constructor(props){
@@ -39,15 +41,33 @@ class Login extends React.Component {
 
     return(
       <>
-        <MenuBar></MenuBar>
-        <form ref={this.refForm}>
-            <label htmlFor ="user">Usuário: </label>
-            <input id="user" name="user" type="text"></input>
-            <label htmlFor ="password">Senha: </label>
-            <input id="password" name="password" type="password"></input>
-            <p> <button onClick={this.mySubmit} type="submit" >Login</button> </p>
-  
-        </form>
+        <MenuBar ></MenuBar>
+        <Container className="mt-4">
+          <Row >
+            <Col></Col>
+            <Col >
+              <Form ref={this.refForm} onSubmit={this.mySubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Usuário:</Form.Label>
+                  <Form.Control name="user" type="text" placeholder="Usuário" required />
+                  <Form.Text className="text-muted">
+                    Nunca compartilhe sua senha com terceiros.
+                  </Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control name="password" type="password" placeholder="Password" required/>
+                </Form.Group>
+                <Button variant="primary" type="submit" >
+                  Entrar
+                </Button>
+              </Form>
+            </Col>
+            <Col></Col>
+
+
+          </Row>
+        </Container>
       </>
     );
 

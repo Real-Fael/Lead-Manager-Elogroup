@@ -38,6 +38,9 @@ class UserService{
     static getSession(){
         return LocalStorage.getSession();
     }
+    static logout(){
+        LocalStorage.deleteThisSession();
+    }
 
 }
 

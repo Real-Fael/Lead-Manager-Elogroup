@@ -1,11 +1,13 @@
 import '../../../App.css';
-import './styles.css';
+import MenuBar from '../../../components/menuBar';
+
 
 
 
 function Home() {
   return (
     <>
+      <MenuBar ></MenuBar>
        <a href="/">home</a><br/>
        <a href="/login">login</a><br/>
        <a href="/register">register</a><br/>
