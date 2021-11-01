@@ -13,9 +13,12 @@ class Register extends React.Component{
     constructor(props){
         super(props);
         this.refForm= React.createRef();
-    
+        const{id}= UsersControllers.getSession(); 
         this.state= {
-            redirect:false,
+            redirect:"",
+            session:{
+                id
+            }
             
         }
     }
@@ -30,7 +33,8 @@ class Register extends React.Component{
             alert("Usuario Criado com sucesso");
             
             this.setState({
-                redirect:true,
+                redirect:"/login",
+                
                 
             })
         }catch(e){
@@ -43,9 +47,13 @@ class Register extends React.Component{
     }  
 
     render() {
+
+        if(this.state.session.id>=0)
+            return <Redirect to="/lead" />
+  
         
         if(this.state.redirect) {
-            return <Redirect to="/login" />
+            return <Redirect to={this.state.redirect} />
           }
 
         return (
@@ -55,6 +63,14 @@ class Register extends React.Component{
                     <Row >
                         <Col></Col>
                         <Col >
+                        <Row>
+                            <Col ></Col>
+                            <Col xs={6}>
+                            <h2> Nova Conta</h2>
+
+                            </Col>
+                            <Col></Col>
+                        </Row>
                             <Form ref={this.refForm} onSubmit={this.mySubmit}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Usuário: *</Form.Label>
@@ -76,9 +92,17 @@ class Register extends React.Component{
                                     <Form.Control name="confirmPass" type="password" placeholder="Password" required/>
                                 </Form.Group>
                                 
-                                <Button  variant="primary" type="submit" >
-                                    Registrar
-                                </Button>
+
+                                <div className="d-grid gap-2">
+                                    <Button  variant="primary" type="submit" size="lg">
+                                        Registrar
+                                    </Button>
+                    
+                                    <Button variant="secondary" size="lg" onClick={()=>this.setState({redirect:"/login"})}>
+                                        Login
+                                    </Button>
+                                 </div>  
+
                             </Form>
                         
                         </Col>

@@ -29,16 +29,11 @@ class Lead extends React.Component {
     }
     mouseDragEnd = (event)=>{
         console.log(event.target.id);
-        let arr_temp= this.state.leadList;
-        console.log(arr_temp);
-        if (this.state.leadList[event.target.id].Status==="Dados Confirmados")
-            arr_temp[event.target.id].Status="Reuniao Agendada";
-        if (this.state.leadList[event.target.id].Status==="Cliente em Potencial")
-            arr_temp[event.target.id].Status="Dados Confirmados";
         
-        console.log(`dragEnd:`,arr_temp);
-        LeadsControllers.updateLeads(arr_temp);
-        this.setState({leadList:arr_temp})
+
+        this.setState({
+            leadList: LeadsControllers.mouseDragController(this.state.leadList,event.target.id)
+        })
         
     }
 
@@ -57,9 +52,23 @@ class Lead extends React.Component {
                 <Row >
                     <Col></Col>
                     <Col xs={7} >
-                        <h2>Painel de Leads</h2>    
-                        <Button onClick={this.redirectNewLead}>Novo Lead (+)</Button>
+                    <Row>
+                        <Col ></Col>
+                        <Col xs={7}>
+                        <h2>Bem Vindo(a) {this.state.session.user.toUpperCase()} !!!</h2>
+
+                        </Col>
+                        <Col></Col>
+                    </Row>
+
+                        <h3>Painel de Leads</h3>  
                         
+                        <div className="d-grid w-25 mb-3 mt-3">  
+                            
+                            <Button onClick={this.redirectNewLead}  >Novo Lead (+)</Button>
+
+                            
+                        </div>
                         <Table striped bordered hover >
                             <thead>
                                 <tr>

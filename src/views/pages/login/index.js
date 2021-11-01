@@ -10,8 +10,12 @@ class Login extends React.Component {
   constructor(props){
     super(props);
     this.refForm = React.createRef();
+    const{id}= UsersControllers.getSession(); 
     this.state={
-      redirect:false
+      redirect:"",
+      session:{
+        id
+      }
     }
   }
   mySubmit = (event) => {
@@ -22,7 +26,7 @@ class Login extends React.Component {
       UsersControllers.loginCheck(userInput.value,passInput.value);
       alert("Logado com sucesso")
       this.setState({
-        redirect:true
+        redirect:"/lead"
       })
 
    }catch(e){
@@ -35,8 +39,11 @@ class Login extends React.Component {
 
   render(){
 
-    if(this.state.redirect) {
+    if(this.state.session.id>=0)
       return <Redirect to="/lead" />
+
+    if(this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
     }
 
     return(
@@ -46,21 +53,37 @@ class Login extends React.Component {
           <Row >
             <Col></Col>
             <Col >
+              <Row>
+                <Col ></Col>
+                <Col >
+                <h2> Login</h2>
+
+                </Col>
+                <Col></Col>
+            </Row>
               <Form ref={this.refForm} onSubmit={this.mySubmit}>
+              
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Usuário:</Form.Label>
+                  <Form.Label>Usuário: *</Form.Label>
                   <Form.Control name="user" type="text" placeholder="Usuário" required />
                   <Form.Text className="text-muted">
                     Nunca compartilhe sua senha com terceiros.
                   </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Password: *</Form.Label>
                   <Form.Control name="password" type="password" placeholder="Password" required/>
                 </Form.Group>
-                <Button variant="primary" type="submit" >
-                  Entrar
-                </Button>
+                
+                <div className="d-grid gap-2">
+                  <Button variant="primary" type="submit" size="lg" >
+                    Entrar
+                  </Button>
+                 
+                  <Button size="lg" variant="secondary" onClick={()=>this.setState({redirect:"/register"})}>
+                    Criar nova conta
+                  </Button>
+                </div>
               </Form>
             </Col>
             <Col></Col>

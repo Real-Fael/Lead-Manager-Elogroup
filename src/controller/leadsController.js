@@ -10,6 +10,7 @@ class LeadsControllers {
         analytics,rpm,userId){
         
         if (!(name && phoneNumber && email)){
+            // eslint-disable-next-line
             throw "todos os campos devem ser prenchidos";
             
         }
@@ -32,6 +33,20 @@ class LeadsControllers {
 
 
     }
+
+    static mouseDragController(leadList, targetId){
+        let arr_temp= leadList;
+        console.log(arr_temp);
+        if (leadList[targetId].Status==="Dados Confirmados")
+            arr_temp[targetId].Status="Reuniao Agendada";
+        if (leadList[targetId].Status==="Cliente em Potencial")
+            arr_temp[targetId].Status="Dados Confirmados";
+        
+        console.log(`dragEnd:`,arr_temp);
+        LeadsControllers.updateLeads(arr_temp);
+        return arr_temp;
+    }
+
     static updateLeads(leads){
         LeadService.updateLeads(leads);
     }

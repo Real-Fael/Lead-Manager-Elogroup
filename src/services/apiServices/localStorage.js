@@ -24,6 +24,7 @@ class LocalStorage{
     static storeUserLogin(user,password){
         
         //caso retorne um objeto ja existe esse usuario
+        // eslint-disable-next-line
         if (this.getUserLoginInformation(user)) throw "Usuário ja cadastrado"
         
         let logins = this.getLoginsList();

@@ -8,6 +8,7 @@ class UsersControllers {
     static registryCheck(user,password,confirmPassword){
         
         if (!(user && password && confirmPassword)) 
+            // eslint-disable-next-line
             throw "Todos os campos devem ser preenchidos";
         
         try{
@@ -21,15 +22,13 @@ class UsersControllers {
     }
 
     static loginCheck(user,password){
+        // eslint-disable-next-line
         if (!(user && password)) throw "Todos os campos devem ser preenchidos";
         try{
             UserService.loginValidate(user,password)
         }catch(e){
             throw e;
-        }
-
-
-    
+        }  
     }
     
     static getSession(){

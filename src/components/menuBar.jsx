@@ -6,6 +6,7 @@ import UsersControllers from "../controller/UsersController";
 
 
 function MenuBar(){
+    
     let navOptions;
     if(UsersControllers.getSession().id<0){
         navOptions = (<>

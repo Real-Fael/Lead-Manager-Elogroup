@@ -6,6 +6,7 @@ class UserService{
    
     static registryLogins(user,password,confirmPassword){
         if (password !== confirmPassword)
+            // eslint-disable-next-line
             throw "As senhas devem ser iguais";
         
         let passVerify = true;
@@ -15,6 +16,7 @@ class UserService{
         if(!regexPass.test(password))  passVerify=false;
         
         if(!passVerify)
+            // eslint-disable-next-line
             throw "A senha deve possuir ao menos 8 caracteres, contendo no mínimo uma letra, um numero e um caracter especial"
         
         try{
@@ -27,9 +29,9 @@ class UserService{
 
     static loginValidate(user,password){
         let loginInformation= LocalStorage.getUserLoginInformation(user);
-
+        // eslint-disable-next-line
         if (!loginInformation) throw "Usuário incorreto";
-
+        // eslint-disable-next-line
         if (password!==loginInformation.password) throw "Senha incorreta";
         
         LocalStorage.storeSession(loginInformation);

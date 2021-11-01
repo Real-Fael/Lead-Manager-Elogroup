@@ -83,8 +83,8 @@ class NewLead extends React.Component {
             <Form ref={this.refForm} onSubmit={this.newLeadSubmit}>
             <Container className="mt-4">
             <Row >
-            <Col></Col>
-            <Col className="mt-5" xs={4} >
+            <Col ></Col>
+            <Col className="mt-5 pt-4" xs={4} >
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Label>Nome: *</Form.Label>
                     <Form.Control name="name" type="text" placeholder="Nome" required />
@@ -92,7 +92,7 @@ class NewLead extends React.Component {
 
                 <Form.Group className="mb-3" controlId="formBasicPhone">
                     <Form.Label>Telefone: *</Form.Label>
-                    <Form.Control name="phoneNumber" type="text" placeholder="(00) 0 0000-0000" required/>
+                    <Form.Control name="phoneNumber" type="tel" placeholder="(00) 0 0000-0000"  required/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email: *</Form.Label>
@@ -101,7 +101,7 @@ class NewLead extends React.Component {
                 </Col><Col xs={4}>
                 <Form.Group className="mb-3" controlId="formOportunidades">
                 <h2>Novo Lead</h2>
-                <Form.Label>Oportunidades: *</Form.Label>
+                <Form.Label className="mt-4">Oportunidades: *</Form.Label>
                 <Table striped bordered hover >
                 <thead>
                     <tr >
@@ -149,10 +149,11 @@ class NewLead extends React.Component {
                     </tbody>
                 </Table>
                 </Form.Group>
-                
-                <Button variant="primary" type="submit" >
-                    Salvar
-                </Button>
+                <div className="d-grid gap-2">
+                    <Button variant="primary" type="submit" size="lg">
+                        Salvar
+                    </Button>
+                </div>
             </Col>
             <Col></Col>
             </Row>
